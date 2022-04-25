@@ -4,7 +4,7 @@ public class Conta {
     String numero;
     double limite;
     String tipo;
-    double saldo;
+    private double saldo;
     Data dataDeAbertura;
     Cliente cliente;
 
@@ -14,9 +14,13 @@ public class Conta {
             this.saldo = novoSaldo;
             return true;
         } else {
-            System.out.println("Saldo insuficiente!");
+            mensagemSaldoInsuficiente();
             return false;
         }
+    }
+
+    private void mensagemSaldoInsuficiente() {
+        System.out.println("Saldo insuficiente!");
     }
 
     void depositar(double quantidade) {
@@ -45,7 +49,7 @@ public class Conta {
                 "CC: " + this.numero + "\n" +
                 "Data de abertura: " + this.dataDeAbertura.toString() + "\n" +
                 "Saldo: " + String.format("%.2f", this.saldo);
-                
+
     }
 
 }
