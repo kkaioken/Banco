@@ -1,44 +1,24 @@
+import java.time.LocalDate;
+import java.time.Month;
+
 public class TestaConta {
     public static void main(String[] args) {
-        Cliente cliente = new Cliente();
-        cliente.nomeCompleto = "Kaioken";
 
-        Data hoje = new Data();
-        hoje.dia = 25;
-        hoje.mes = 4;
-        hoje.ano = 2022;
+        LocalDate dataNacimento = LocalDate.of(2003, Month.SEPTEMBER, 22);
+        Cliente cliente = new Cliente("Kaioken", "02222222-12", dataNacimento, new Endereco());
 
-        Conta contaCorrente = new Conta();
-        contaCorrente.agencia = "001";
-        contaCorrente.numero = "1112-1";
-        contaCorrente.ativa = true;
-        contaCorrente.cliente = cliente; 
-        contaCorrente.dataDeAbertura = hoje;
-        contaCorrente.limite = 400;
-        contaCorrente.depositar(110);
-        contaCorrente.tipo = "Conta Corrente";
+        Conta contaCorrente = new Conta(cliente, "001", "1112-1", "Conta Corrente");
+        contaCorrente.depositar(100);
+        System.out.println(Conta.getTotalDeContas());
 
-        
-        Conta contaPoupanca = new Conta();
-        contaPoupanca.agencia = "001";
-        contaPoupanca.numero = "1112-1";
-        contaPoupanca.ativa = true;
-        contaPoupanca.cliente = cliente;
-        contaPoupanca.dataDeAbertura = hoje;
-        contaPoupanca.limite = 0;
-        contaPoupanca.depositar(1000);
-        contaPoupanca.tipo = "Conta Poupança";
-        
-        if (contaCorrente == contaPoupanca) {
-            System.out.println("Contas iguais. ");
-        } else {
-            System.out.println("Contas diferentes. ");
-        }
-        
-        double rendimentoAbril = contaPoupanca.calcularRendimentoMensal(0.1);
+        double rendimentoAbril = contaCorrente.calcularRendimentoMensal(0.1);
         System.out.println("O rendimento de abril é " + rendimentoAbril);
-        
-        System.out.println(contaPoupanca.recuperarDadosParaImpressao());
-        
+
+        System.out.println(contaCorrente);
+
+        Conta contaPoupanca = new Conta(cliente, "001", "1112-1", "Conta Poupança");
+        contaPoupanca.depositar(1100);
+        System.out.println(Conta.getTotalDeContas());
+
     }
 }
